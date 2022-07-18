@@ -1,7 +1,8 @@
-##LoginPage
+## LoginPage
+
 <img src="public/assets/images/brand/login.png" width="100%" height="50%"/>
 
-##HomePage
+## HomePage
 <img src="public/assets/images/brand/home.png" width="100%" height="50%"/>
 
 ## About LaravelHogo
@@ -18,7 +19,7 @@ LaravelHogo provides free Bootstrap Hogo Admin Template have tons of elements an
 ## Download Hogo Theme For Free
 To Download Bootstrap HOGO Theme for Free <a href="https://github.com/Asfandyarkhanafridi/hogotheme">Click Here</a>
 
-##How to Get Started
+## How to Get Started
 1. Clone this Repository.
 2. Run: "Composer update" inside this repository.
 3. Create Database in your localhost.
