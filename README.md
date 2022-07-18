@@ -17,7 +17,8 @@ Qudrat Agha
 LaravelHogo provides free Bootstrap Hogo Admin Template have tons of elements and widgets inside public/assets/plugins
 
 ## Download Hogo Theme For Free
-To Download Bootstrap HOGO Theme for Free <a href="https://github.com/Asfandyarkhanafridi/hogotheme">Click Here</a>
+To Download Bootstrap HOGO Theme for Free <a href="https://github.com/Asfandyarkhanafridi/hogotheme">Click Here to Download</a>
+To View Demo of Bootstrap HOGO Theme <a href="https://laravel.spruko.com/hogo/Horizontal-Light/index">Click Here to View Demo</a>
 
 ## How to Get Started
 1. Clone this Repository.
