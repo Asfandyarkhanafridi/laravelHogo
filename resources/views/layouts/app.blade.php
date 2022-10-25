@@ -45,9 +45,8 @@
     <link href="/assets/plugins/iconfonts/icons.css" rel="stylesheet" />
     <link  href="/assets/fonts/fonts/font-awesome.min.css" rel="stylesheet">
 
-    <!---Select 2--->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <!-- Select 2-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Data table css -->
     <link href="/assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
@@ -66,6 +65,10 @@
             content:'*';
             color:red;
             padding-left:5px;
+        }
+        .dataTables_wrapper .dt-buttons {
+            float:none;
+            text-align:center;
         }
     </style>
 </head>
@@ -161,8 +164,16 @@
 
 <script src="/assets/plugins/datatable/dataTables.responsive.min.js"></script>
 
-<!---Select 2--->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- DataTables Export Buttons-->
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+
+<!-- Select2-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js" integrity="sha512-RtZU3AyMVArmHLiW0suEZ9McadTdegwbgtiQl5Qqo9kunkVg1ofwueXD8/8wv3Af8jkME3DDe3yLfR8HSJfT2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Charts js-->
 
@@ -177,22 +188,32 @@
 
 <script>
     $(document).ready( function () {
+        //DataTables
         $('table.display').DataTable({
-
+            dom: 'lBfrtip',
+            "pageLength": 50,
+            buttons: [
+                { extend: 'excelHtml5', text: 'Export To Excel', className: 'btn-primary', exportOptions: { columns: ':not(.notExport)'} },
+                { extend: 'pdfHtml5', text: 'Export To PDF', className: 'btn-secondary', exportOptions: { columns: ':not(.notExport)'} }
+            ],
         });
 
+        //select 2 i.e. search and select.
+        $('select.form-select').select2({
+            dropdownParent: $('.card-body'),
+            width: "resolve"
+        });
+
+        //alert remove after 8sec
+        setTimeout(function() {
+            $('#deleteAlert').remove();
+        }, 8000);
+
+        //ToolTip
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     } );
-</script>
-<script>
-    //alert remove after 5sec
-    setTimeout(function() {
-        $('#deleteAlert').remove();
-    }, 4000);
-</script>
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-    });
 </script>
 @yield('more-script')
 </html>

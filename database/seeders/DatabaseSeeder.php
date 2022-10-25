@@ -16,11 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        DB::table('users')->insert([
-            'name' => 'Asfand Afridi',
-            'email'=> 'email@gmail.com',
-            'password' => Hash::make('11111111'),
-        ]);
+        $this->call([
+		    AccessLevelSeeder::class,
+		    ModuleSeeder::class,
+		    PrivilegeSeeder::class,
+		    RoleSeeder::class,
+		    RolePrivilegeSeeder::class,
+            UserTypeSeeder::class,
+		    UserSeeder::class,
+		    UserRoleSeeder::class,
+	    ]);
     }
 }

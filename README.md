@@ -25,11 +25,12 @@ To View Demo of Bootstrap HOGO Theme <a href="https://laravel.spruko.com/hogo/Ho
 2. Run: "Composer update" inside this repository.
 3. Create Database in your localhost.
 4. Check .env file.
-5. Run: "php artisan migrate:fresh --seed".
+5. Run: "php artisan migrate:fresh --seed".`
 6. Login with <br>
-    email: "email@gmail.com"<br>
-    password: "12345678".<br>
-7. Ready to Go.....
+    email: "admin@gmail.com"<br>
+    password: "admin123".<br>
+7. Run: "php artisan serve"    
+8. Ready to Go.....
 
 ## Contact 
 You can reach me via LinkedIn. <a href="https://www.linkedin.com/in/asfand-afridi-b47b54124/">Click Here</a> <br>
