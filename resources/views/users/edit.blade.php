@@ -1,81 +1,88 @@
-@extends('layouts.app')
-@section('pre-title', 'Form')
+@extends('layouts.nav')
+@section('title', 'User Edit')
+@section('app-content', 'app-content')
 
-@section('title', 'Edit User')
+@section('main-content')
+    <div class="container content-area">
+        <div class="sideapp">
+            <!-- page-header -->
+            <div class="page-header mt-0 mb-0">
+                <ol class="breadcrumb"><!-- breadcrumb -->
+                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">User List</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Edit User') }}</li>
+                </ol><!-- End breadcrumb -->
+            </div>
+            <!-- End page-header -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        @include('partials.message')
+                        <div class="card-header">
+                            <h3 class="mb-0 card-title">{{ __('Edit User') }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="{{route('users.update',$user->userID)}}">
+                                @method('PUT')
+                                @csrf
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-check-input" name="statusID" value="1">
+                                            <input type="hidden" class="form-check-input" name="roleID" value="1">
 
-@section('content')
-	<div class="card card-default color-palette-box">
-        <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-user"></i> Edit User
-            </h3>
-        </div>
-        <div class="card-body">
-			<form class="form-horizontal" action="{{ route('users.update',$user->userID) }}" method="POST">
-				@csrf
-				@method('PUT')
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">{{__('menu.active')}}: *</label>
-					<div class="col-sm-10">
-						<label class="radio-inline">
-							<input type="radio" name="statusID" id="yes" value="1" @if(old('statusID',$user->statusID) == '1') checked @endif > Yes
-						</label>&nbsp;&nbsp;
-						<label class="radio-inline">
-							<input type="radio" name="statusID" id="no" value="0" @if(old('statusID',$user->statusID) == '0') checked @endif > No
-						</label>
-					</div>
+                                            <label class="form-label required">User Name</label>
+                                            <input type="text" class="form-control" name="name" placeholder="Enter User Name" value="{{$user->name}}">
+                                            @if($errors->has('name'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('name') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required">Email</label>
+                                            <input type="email" class="form-control" name="email" placeholder="Enter Email" value="{{$user->email}}">
+                                            @if($errors->has('email'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('email') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required">Old Password</label>
+                                            <input type="password" class="form-control" name="oldPassword" placeholder="Enter Old Password">
+                                            @if($errors->has('oldPassword'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('oldPassword') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required">Password</label>
+                                            <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                                            @if($errors->has('password'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('password') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label required">Confirm Password</label>
+                                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password">
+                                            @if($errors->has('confirmPassword'))
+                                                <div class="text-danger">
+                                                    {{ $errors->first('confirmPassword') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{route('users.index')}}" type="button" class="btn btn-secondary">Back</a>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-				<div class="form-group row {{ $errors->has('name') ? 'has-error' : '' }}">
-                    <label for="name" class="col-sm-2 col-form-label">{{__('menu.name')}}: *</label>
-					<div class="col-sm-10">
-	                    <input type="text" name="name" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{ old('name',$user->name) }}">
-	                    @if($errors->has('name'))
-	                        <em class="invalid-feedback">
-	                            {{ $errors->first('name') }}
-	                        </em>
-	                    @endif
-					</div>
-                </div>
-				<div class="form-group row {{ $errors->has('email') ? 'has-error' : '' }}">
-                    <label for="email" class="col-sm-2 col-form-label">{{__('menu.email')}}: *</label>
-					<div class="col-sm-10">
-	                    <input type="email" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ old('email',$user->email) }}">
-	                    @if($errors->has('email'))
-	                        <em class="invalid-feedback">
-	                            {{ $errors->first('email') }}
-	                        </em>
-	                    @endif
-					</div>
-                </div>
-				<div class="form-group row">
-                    <label for="password" class="col-sm-2 col-form-label">{{__('menu.password')}}:</label>
-					<div class="col-sm-10">
-                    	<input type="password" name="password" class="form-control @if($errors->has('password')) is-invalid @endif">
-					</div>
-                </div>
-				<div class="form-group row {{ $errors->has('roleID') ? 'has-error' : '' }}">
-                    <label for="name" class="col-sm-2 col-form-label">{{__('menu.roles')}}: *</label>
-					<div class="col-sm-10">
-						@foreach ($roles as $role)
-							<div class="checkbox @if($errors->has('roleID')) is-invalid @endif">
-								<label>
-									<input type="checkbox" name="roleID[]" value="{{$role->roleID}}"
-									{{ (is_array(old('roleID',$userRoles)) && in_array($role->roleID, old('roleID',$userRoles))) ? ' checked' : '' }}
-									> {{$role->roleName}}
-								</label>
-							</div>
-						@endforeach
-						@if($errors->has('roleID'))
-	                        <em class="invalid-feedback">
-	                            {{ $errors->first('roleID') }}
-	                        </em>
-	                    @endif
-					</div>
-                </div>
-                <div class="row mt-2 offset-2">
-                    <input class="btn btn-primary" type="submit" value="Update">
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-@stop
+@endsection

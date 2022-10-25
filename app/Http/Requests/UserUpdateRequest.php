@@ -29,7 +29,9 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
+            'oldPassword' => 'required',
             'password' => 'required',
+            'confirmPassword' => 'required|same:password',
             'roleID' => 'required',
         ];
     }
@@ -40,7 +42,9 @@ class UserUpdateRequest extends FormRequest
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
             'email.email' => 'Email is invalid',
+            'oldPassword.required' => 'Old Password is required',
             'password.required' => 'Password is required',
+            'confirmPassword.required' => 'Confirm Password is required',
             'roleID.required' => 'Role is required'
         ];
     }

@@ -17,12 +17,14 @@
                         <div class="dropdown">
                             <div class="dropdown header-notify">
                                 <a class="nav-link icon" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fe fe-log-out "></i>
-                                    <span class="pulse bg-success"></span>
+                                    <i class="fe fe-settings"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+                                    <a class="dropdown-item" href="{{ route('users.index') }}"><i class="fe fe-users"></i>&nbsp;Users</a>
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}"><i class="fe fe-user"></i>&nbsp;{{ ucfirst(Auth::user()->name) }}&nbsp;Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();"><strong><i class="fe fe-user"></i> {{ __(' Logout') }}-{{ ucfirst(Auth::user()->name) }}</strong></a>
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fe fe-lock"></i>&nbsp;{{ ucfirst(Auth::user()->name) }}&nbsp;{{ __(' Logout') }}
+                                    </a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                             @csrf
                                         </form>

@@ -10,73 +10,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
-use Yajra\DataTables\Facades\DataTables;
 use Gate;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         abort_if(Gate::denies('user_read'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        if ($request->ajax()) {
-            $query = User::with(['userType', 'roles'])->get();
-            $table = Datatables::of($query);
-
-            $table->addColumn('actions', '&nbsp;');
-
-            $table->editColumn('actions', function ($row) {
-                $viewGate      = 'user_read';
-                $editGate      = 'user_update';
-                $deleteGate    = 'user_delete';
-                $crudRoutePart = 'users';
-                $primaryKey = 'userID';
-
-                return view('partials.datatablesActions', compact(
-                    'viewGate',
-                    'editGate',
-                    'deleteGate',
-                    'crudRoutePart',
-                    'row',
-                    'primaryKey'
-                ));
-            });
-
-            $table->editColumn('name', function ($row) {
-                return $row->name;
-            });
-            $table->addColumn('email', function ($row) {
-                return $row->email;
-            });
-            $table->addColumn('dateCreated', function ($row) {
-                return $row->dateCreated;
-            });
-
-            $table->editColumn('userType', function ($row) {
-                return $row->userType->userType;
-            });
-
-            $table->editColumn('roles', function ($row) {
-                $labels = [];
-
-                foreach ($row->roles as $role) {
-                    $labels[] = sprintf('<span class="badge badge-info">%s</span>', $role->roleName);
-                }
-
-                return implode(' ', $labels);
-            });
-
-            $table->rawColumns(['actions','roles']);
-
-            return $table->make(true);
-        }
-        return view('users.index');
+        $users = User::all();
+        return view('users.index',compact('users'));
     }
 
     public function create()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $roles = \App\Models\Role::all()->sortBy('roleName');
-        return view('admin.users.create',compact('roles'));
+        return view('users.create',compact('roles'));
     }
 
     public function store(UserStoreRequest $request)
@@ -93,7 +42,7 @@ class UserController extends Controller
             $request->session()->flash('message', 'User added successfully!');
         } catch (\Exception $e) {
             DB::rollback();
-            $request->session()->flash('error', 'An error occurred while adding user!');
+            $request->session()->flash('errorMessage', 'An error occurred while adding user!');
         }
         return redirect()->route('users.index');
     }
@@ -101,7 +50,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         abort_if(Gate::denies('user_read'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        return view('admin.users.show', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     public function edit(User $user)
@@ -118,24 +67,28 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-            $newPassword = $user->password;
-            if (strlen(trim($request->password))) {
+            if (strlen(trim($request->password))){
                 $newPassword = Hash::make($request->password);
             }
-            $request->merge([
-                'password' => $newPassword
-            ]);
-            $request['userTypeID'] = 2;
-            $user->update($request->except(['roleID','confirmPassword']));
-            $user->roles()->sync($request->roleID);
-            DB::commit();
-            $request->session()->flash('message', 'User updated successfully!');
+            if (Hash::check($request->oldPassword, $user->password)) {
+                $request->merge([
+                    'password' => $newPassword
+                ]);
+                $request['userTypeID'] = 1;
+                $user->update($request->except(['roleID','confirmPassword']));
+                $user->roles()->sync($request->roleID);
+                DB::commit();
+                $request->session()->flash('message', 'User updated successfully!');
+                return redirect()->route('users.index');
+            } else {
+                $request->session()->flash('errorMessage', 'Old Password does not match');
+                return redirect()->route('users.edit',$user->userID);
+            }
         } catch (\Exception $e) {
             DB::rollback();
-            $request->session()->flash('error', 'An error occurred while updating user!');
+            $request->session()->flash('errorMessage', 'An error occurred while updating user!');
+            return redirect()->route('users.index');
         }
-
-        return redirect()->route('users.index');
     }
 
     public function destroy(User $user, Request $request)
@@ -149,7 +102,7 @@ class UserController extends Controller
             $request->session()->flash('message', 'User deleted successfully!');
         } catch (\Exception $e) {
             DB::rollback();
-            $request->session()->flash('error', 'An error occurred while deleting user!');
+            $request->session()->flash('errorMessage', 'An error occurred while deleting user!');
         }
         return redirect()->route('users.index');
     }

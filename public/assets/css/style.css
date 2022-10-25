@@ -2193,8 +2193,7 @@ pre code {
 	opacity: 1;
 }
 .form-control {
-	color:#99c1b2;
-	opacity: 1;
+	color: #0a0c0d;
 }
 .form-control:disabled, .form-control[readonly] {
 	background-color: #ebeaf1;

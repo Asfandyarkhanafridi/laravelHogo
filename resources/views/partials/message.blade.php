@@ -5,15 +5,6 @@
         </div>
     </div>
 @endif
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>
-                {{ $error }}
-            </li>
-        @endforeach
-    </ul>
-@endif
 @if(session()->has('errorMessage'))
     <div class="row mb-2">
         <div class="col-lg-12">

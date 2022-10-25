@@ -15,15 +15,21 @@ class ProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request)
     {
-        if ($request->password) {
-            auth()->user()->update(['password' => Hash::make($request->password)]);
+        if (strlen(trim($request->password))){
+            $newPassword = Hash::make($request->password);
+        }
+        if (Hash::check($request->oldPassword, auth()->user()->password)) {
+            auth()->user()->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($newPassword)
+            ]);
+            $request->session()->flash('message', 'User updated successfully!');
+            return redirect()->route('users.index');
+        } else {
+            $request->session()->flash('errorMessage', 'Old Password does not match');
+            return redirect()->route('auth.profile');
         }
 
-        auth()->user()->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        return redirect()->back()->with('success', 'Profile updated.');
     }
 }
