@@ -55,6 +55,10 @@
     <!-- Date Picker css-->
     <link href="/assets/plugins/date-picker/spectrum.css" rel="stylesheet" />
 
+    <!---Sweetalert Css-->
+    <link href="/assets/plugins/sweet-alert/jquery.sweet-modal.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet" />
+
     @yield('more-style')
     <style>
         #hov:hover {
@@ -185,13 +189,16 @@
 <!-- Hotkeys-->
 <script src="/js/hotkey.js"></script>
 
+<!-- SweetAlert-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <!-- Charts js-->
 
-<script src="../assets/plugins/chart/chart.bundle.js"></script>
-<script src="../assets/plugins/chart/chart.extension.js"></script>
+<script src="/assets/plugins/chart/chart.bundle.js"></script>
+<script src="/assets/plugins/chart/chart.extension.js"></script>
 
 <!-- Custom-charts js-->
-<script src="../assets/js/chartjs.js"></script>
+<script src="/assets/js/chartjs.js"></script>
 
 <!-- Custom js-->
 <script src="/assets/js/custom.js"></script>
@@ -223,6 +230,7 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
+
     } );
 </script>
 @yield('more-script')
