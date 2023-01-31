@@ -70,6 +70,13 @@
             float:none;
             text-align:center;
         }
+        #rmBgBtn{
+            border: none;
+            background: none;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 <body class="@yield('body-class') ">
@@ -80,7 +87,7 @@
 @yield('nav')
 <!-- app-content-->
 <div class="my-3 @yield('margin') @yield('app-content')">
-    <div class="side-app">
+    <div class="side-app mt-9">
         @yield('main-content')
     </div>
     <!--End side app-->
@@ -89,8 +96,8 @@
     <footer class="footer" style=" margin-left: 20px;">
         <div class="container">
             <div class="row align-items-center flex-row-reverse">
-                <div class="col-lg-12 col-sm-12   text-center">
-                    Copyright © 2022 <a href="https://www.impact-enterprises.co/" target="_blank">Impact Enterprises</a>. Designed by <a href="#">Asfand Afridi</a> All rights reserved.
+                <div class="col-lg-12 col-sm-12 text-center @yield('copyright-text')">
+                    Copyright © 2023 | Designed by <a href="https://asfandyarkhanafridi.github.io/asfandportfolio/">Asfand Afridi</a> All rights reserved.
                 </div>
             </div>
         </div>
@@ -175,6 +182,9 @@
 <!-- Select2-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js" integrity="sha512-RtZU3AyMVArmHLiW0suEZ9McadTdegwbgtiQl5Qqo9kunkVg1ofwueXD8/8wv3Af8jkME3DDe3yLfR8HSJfT2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<!-- Hotkeys-->
+<script src="/js/hotkey.js"></script>
+
 <!-- Charts js-->
 
 <script src="../assets/plugins/chart/chart.bundle.js"></script>
@@ -216,4 +226,5 @@
     } );
 </script>
 @yield('more-script')
+@include('partials.shortcutKeys')
 </html>

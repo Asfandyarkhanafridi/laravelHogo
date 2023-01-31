@@ -3,7 +3,7 @@
 @section('app-content', 'app-content')
 
 @section('main-content')
-    <div class="container content-area">
+    <div class="container-fluid content-area">
         <div class="sideapp">
             <div class="row">
                 <div class="col-md-12">
@@ -17,7 +17,7 @@
                             @endcan
                         </div>
                         <div class="card-body">
-                            <table class="table row table-borderless w-100 m-0 border">
+                            <table class="table-sm table-striped text-nowrap w-100 display">
                                 <tbody class="col-lg-6 p-0">
                                 <tr>
                                     <td><strong>User Name :</strong> {{ $user->name}}</td>

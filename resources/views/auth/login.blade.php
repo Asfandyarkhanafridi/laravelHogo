@@ -1,14 +1,24 @@
 @extends('layouts.app')
+@section('more-style')
+    <style>
+        .bg-image{
+            background-image: url('/assets/images/photos/bgImage.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+@endsection
+@section('copyright-text','text-black')
+@section('body-class','bg-image')
 
-@section('body-class','bg-account')
 @section('title', 'Login')
 
 @section('main-content')
-    <div class="container text-center text-dark">
+    <div class="container-fluid text-center text-dark">
         <div class="row mt-md-5">
-            <div class="col-lg-4 d-block mx-auto">
+            <div class="col-lg-4 col-xl-3 col-sm-8 d-block mx-auto">
                 <div class="row">
-                    <div class="col-xl-12 col-md-12 col-md-12">
+                    <div class="col-xl-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">{{ __('Login') }}</div>
                             <div class="card-body">

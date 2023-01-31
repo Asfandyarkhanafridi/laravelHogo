@@ -3,7 +3,7 @@
 @section('app-content', 'app-content')
 
 @section('main-content')
-    <div class="container content-area">
+    <div class="container-fluid content-area">
         <div class="sideapp">
             <!-- page-header -->
             <div class="page-header mt-0 mb-0">

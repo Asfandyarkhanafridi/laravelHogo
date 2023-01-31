@@ -22,14 +22,11 @@ class ProfileController extends Controller
             auth()->user()->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($newPassword)
+                'password' => ($newPassword)
             ]);
-            $request->session()->flash('message', 'User updated successfully!');
-            return redirect()->route('users.index');
+            return redirect()->route('users.index')->with('message','Password Changed Successfully');
         } else {
-            $request->session()->flash('errorMessage', 'Old Password does not match');
-            return redirect()->route('auth.profile');
+            return redirect()->route('profile.show')->with('errorMessage','Something went Wrong!');
         }
-
     }
 }

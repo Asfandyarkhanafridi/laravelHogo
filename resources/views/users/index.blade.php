@@ -3,7 +3,7 @@
 @section('app-content', 'app-content')
 
 @section('main-content')
-    <div class="container content-area">
+    <div class="container-fluid content-area">
         <div class="sideapp">
             <!-- End page-header -->
             <div class="row">
@@ -22,7 +22,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered text-nowrap w-100 display">
+                                <table class="table-sm table-striped text-nowrap w-100 display">
                                     <thead>
                                     <tr>
                                         <th class="wd-15p">SrNo.</th>
@@ -68,4 +68,7 @@
             </div>
         </div>
     </div>
+@endsection
+@section('more-script')
+    @include('partials.shortcutKeyCreate')
 @endsection

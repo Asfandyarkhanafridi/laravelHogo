@@ -2117,9 +2117,9 @@ pre code {
 	font-size: 0.9375rem;
 	line-height: 1.6;
 	color: #6b6f80;
-	background: #f4f3f9;
+	background: #ffffff;
     background-clip: padding-box;
-    border: 1px solid rgba(107,122,144,0.1);
+    border: 2px solid rgba(107,122,144,0.1);
 }
 .select2-container--default .select2-selection--single {
 	background-color: #f4f3f9;
@@ -2127,7 +2127,7 @@ pre code {
 }
 .select2-container--default.select2-container--focus .select2-selection--multiple {
 	color: #495057;
-	background-color:#f4f3f9;
+	background-color: #ffffff;
 	border-color: #4eceb2;
 	outline: 0;
 }
