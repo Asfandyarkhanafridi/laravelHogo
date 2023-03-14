@@ -3,7 +3,7 @@
     <style>
         .bg-image{
             background-image: url('/assets/images/photos/bgImage.jpg');
-            background-size: contain;
+            background-size: cover;
             background-repeat: no-repeat;
         }
     </style>
